@@ -1,0 +1,20 @@
+{
+  "name": "explain-backend",
+  "version": "1.0.0",
+  "description": "backend for explanatory models in neonatology",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "tsc && node dist/api/server.js "
+  },
+  "author": "Tim Antonius",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19",
+    "ts-node": "^10.8.2",
+    "typescript": "^4.7.4"
+  }
+}
