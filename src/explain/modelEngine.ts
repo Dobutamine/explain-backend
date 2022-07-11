@@ -30,4 +30,6 @@ import { Drugs } from "./core-models/drugs.js";
 import { Ecls } from "./core-models/ecls.js";
 import { Birth } from "./core-models/birth.js";
 
-console.log("Modelengine running in worker thread....");
+import { Datacollector } from "./helpers/datacollector.js";
+
+console.log("Modelengine running in worker thread!");
