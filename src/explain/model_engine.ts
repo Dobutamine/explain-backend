@@ -30,6 +30,36 @@ import { Drugs } from "./core-models/drugs.js";
 import { Ecls } from "./core-models/ecls.js";
 import { Birth } from "./core-models/birth.js";
 
+import { WorkerMessage, IComponent } from "./types/explain_types.js";
 import { Datacollector } from "./helpers/datacollector.js";
 
-console.log("Modelengine running in worker thread!");
+// define a model definition datastructure, the form is depending on the JSON file so no typechecking possible before loading the JSON
+let modelDefinition: any;
+
+parentPort?.on("message", (mes) => {
+  switch (mes.command) {
+    case "init_engine":
+      init(mes.params);
+      modelDefinition = mes.params;
+      break;
+  }
+});
+
+function init(definition: any): void {
+  console.log(definition);
+  // parse the definition object and build the current model structure from it.
+}
+
+function calculate(timeToCalculate: number): void {}
+
+function start(): void {}
+
+function stop(): void {}
+
+function reset(): void {}
+
+function dispose(): void {}
+
+function readJSONFile(filename: string = "normal_neonate"): void {}
+
+function writeJSONFile(filename: string): void {}

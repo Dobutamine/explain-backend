@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/api/server.js",
+    "start": "tsc && node dist/api/server.js",
     "dev": "concurrently \"tsc --watch\" \"nodemon -q dist/api/server.js\""
   },
   "author": "Tim Antonius",
