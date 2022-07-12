@@ -1,5 +1,5 @@
 import { WorkerMessage } from "./types/explain_types.js";
-import { fstat, readFile } from "fs";
+import { readFile } from "fs";
 import path from "path";
 
 import { Worker } from "worker_threads";

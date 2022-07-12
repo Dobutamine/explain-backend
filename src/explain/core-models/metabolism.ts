@@ -1,3 +1,7 @@
-export class Metabolism {
-  constructor() {}
+import { Component } from "../types/explain_types.js";
+
+export class Metabolism extends Component {
+  constructor() {
+    super();
+  }
 }

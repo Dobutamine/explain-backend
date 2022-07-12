@@ -1,3 +1,7 @@
-export class BloodCompliance {
-  constructor() {}
+import { Component } from "../types/explain_types.js";
+
+export class BloodCompliance extends Component {
+  constructor() {
+    super();
+  }
 }

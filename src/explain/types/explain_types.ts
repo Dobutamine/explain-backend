@@ -4,10 +4,21 @@ export type WorkerMessage = {
   params: any;
 };
 
-export interface IComponent {
-  name: string;
-  description: string;
-  modeltype: string;
-  isEnabled: boolean;
-  modelStep(): void;
+export class Component {
+  public name: string = "";
+  public description: string = "";
+  public isEnabled: boolean = false;
+  public initialized: boolean = false;
+  modelStep(): void {
+    if (!this.initialized) {
+      this.initialize();
+    }
+    if (this.isEnabled) {
+      this.calculateStep();
+    }
+  }
+  initialize(): void {
+    this.initialized = true;
+  }
+  calculateStep(): void {}
 }
