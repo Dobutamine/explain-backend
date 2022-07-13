@@ -19,6 +19,11 @@ export class Model {
                 target: "",
                 params: JSON.parse(data),
             });
+            worker.postMessage({
+                command: "calculate",
+                target: "",
+                params: [1],
+            });
         });
     }
 }

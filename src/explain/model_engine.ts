@@ -17,6 +17,9 @@ parentPort?.on("message", (mes) => {
     case "init_engine":
       init(mes.params);
       break;
+    case "calculate":
+      calculate(mes.params[0]);
+      break;
   }
 });
 
@@ -58,7 +61,15 @@ function init(definition: ModelDefinition): void {
   }
 }
 
-function calculate(timeToCalculate: number): void {}
+function calculate(timeToCalculate: number): void {
+  const noOfSteps = timeToCalculate / currentModel.modeling_stepsize;
+
+  for (let i = 0; i < noOfSteps; i++) {
+    for (const key in currentModel.components) {
+      currentModel.components[key].modelStep();
+    }
+  }
+}
 
 function start(): void {}
 

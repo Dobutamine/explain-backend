@@ -16,19 +16,23 @@ export type ModelDefinition = {
 export class Component {
   public name: string = "";
   public description: string = "";
-  public isEnabled: boolean = false;
+  public is_enabled: boolean = false;
   public initialized: boolean = false;
+
   constructor(public model: any) {}
+
   modelStep(): void {
     if (!this.initialized) {
       this.initialize();
     }
-    if (this.isEnabled) {
+    if (this.is_enabled) {
       this.calculateStep();
     }
   }
+
   initialize(): void {
     this.initialized = true;
   }
+
   calculateStep(): void {}
 }

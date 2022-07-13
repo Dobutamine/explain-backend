@@ -13,6 +13,9 @@ parentPort?.on("message", (mes) => {
         case "init_engine":
             init(mes.params);
             break;
+        case "calculate":
+            calculate(mes.params[0]);
+            break;
     }
 });
 // define a model definition datastructure, the form is depending on the JSON file so no typechecking possible before loading the JSON
@@ -44,7 +47,14 @@ function init(definition) {
         }
     }
 }
-function calculate(timeToCalculate) { }
+function calculate(timeToCalculate) {
+    const noOfSteps = timeToCalculate / currentModel.modeling_stepsize;
+    for (let i = 0; i < noOfSteps; i++) {
+        for (const key in currentModel.components) {
+            currentModel.components[key].modelStep();
+        }
+    }
+}
 function start() { }
 function stop() { }
 function reset() { }

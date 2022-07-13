@@ -3,14 +3,14 @@ export class Component {
         this.model = model;
         this.name = "";
         this.description = "";
-        this.isEnabled = false;
+        this.is_enabled = false;
         this.initialized = false;
     }
     modelStep() {
         if (!this.initialized) {
             this.initialize();
         }
-        if (this.isEnabled) {
+        if (this.is_enabled) {
             this.calculateStep();
         }
     }

@@ -3,4 +3,7 @@ export class BloodCompliance extends Component {
     constructor(model) {
         super(model);
     }
+    calculateStep() {
+        console.log("t");
+    }
 }
