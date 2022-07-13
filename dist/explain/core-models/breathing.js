@@ -1,6 +1,6 @@
 import { Component } from "../types/explain_types.js";
 export class Breathing extends Component {
-    constructor() {
-        super();
+    constructor(model) {
+        super(model);
     }
 }

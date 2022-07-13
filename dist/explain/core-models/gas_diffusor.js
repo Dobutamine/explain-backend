@@ -1,6 +1,6 @@
 import { Component } from "../types/explain_types.js";
 export class GasDiffusor extends Component {
-    constructor() {
-        super();
+    constructor(model) {
+        super(model);
     }
 }

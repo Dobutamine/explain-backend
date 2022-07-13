@@ -1,7 +1,7 @@
 import { Component } from "../types/explain_types.js";
 
 export class BloodCompliance extends Component {
-  constructor() {
-    super();
+  constructor(model: any) {
+    super(model);
   }
 }

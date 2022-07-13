@@ -1,5 +1,6 @@
 export class Component {
-    constructor() {
+    constructor(model) {
+        this.model = model;
         this.name = "";
         this.description = "";
         this.isEnabled = false;

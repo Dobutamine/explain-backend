@@ -1,20 +1,17 @@
+// import the parentPort for communication outside thread
 import { parentPort } from "worker_threads";
-
-import { WorkerMessage, Component } from "./types/explain_types.js";
-import { Datacollector } from "./helpers/datacollector.js";
 
 // import all models from core-models folder
 import * as models from "./core-models/index.js";
+import { Component, ModelDefinition } from "./types/explain_types.js";
 
-// generate a model dictionary from imported models
+// generate a model dictionary from all imported models needed to dynamically instantiate them
 let modelList: any = {};
 for (const [key, value] of Object.entries(models)) {
   modelList[key] = value;
 }
 
-// define a model definition datastructure, the form is depending on the JSON file so no typechecking possible before loading the JSON
-let currentModel: any = {};
-
+// communication channel
 parentPort?.on("message", (mes) => {
   switch (mes.command) {
     case "init_engine":
@@ -23,7 +20,11 @@ parentPort?.on("message", (mes) => {
   }
 });
 
-function init(definition: any): void {
+// define a model definition datastructure, the form is depending on the JSON file so no typechecking possible before loading the JSON
+let currentModel: any = {};
+
+// initialize the model using the definition file
+function init(definition: ModelDefinition): void {
   // parse the definition object and build the current model structure from it.
   currentModel["name"] = definition.name;
   currentModel["description"] = definition.description;
@@ -32,22 +33,27 @@ function init(definition: any): void {
   currentModel["modeling_stepsize"] = definition.modeling_stepsize;
   currentModel["components"] = {};
 
+  // parse the component list
   for (const [name, props] of Object.entries(definition.components)) {
-    // parse the component list
     let componentProperties = props as any;
-    let modeltype = componentProperties.model_type;
     try {
-      let newComponent = new modelList[modeltype]();
+      // instantiate the correct model
+      let newComponent = new modelList[componentProperties.model_type](
+        currentModel
+      );
+      // iterate over the properties and set them on the model instance
       for (const [prop_name, prop_value] of Object.entries(
         componentProperties
       )) {
         newComponent[prop_name] = prop_value;
       }
-      // instantiate the correct model
+      // store the components in the model dictionary
       currentModel.components[name] = newComponent;
-      // add the properties to the new model instance
     } catch (e) {
-      console.log("cant instantiate ", componentProperties.model_type);
+      console.log(
+        "MODEL-ENGINE: unable to find",
+        componentProperties.model_type
+      );
     }
   }
 }
