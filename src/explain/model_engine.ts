@@ -65,8 +65,8 @@ function calculate(timeToCalculate: number): void {
   const noOfSteps = timeToCalculate / currentModel.modeling_stepsize;
 
   for (let i = 0; i < noOfSteps; i++) {
-    for (const key in currentModel.components) {
-      currentModel.components[key].modelStep();
+    for (const comp in currentModel.components) {
+      currentModel.components[comp].modelStep();
     }
   }
 }
