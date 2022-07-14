@@ -10,7 +10,7 @@ export class ModelMain {
         this.engineInitialized = false;
         this.messenger = new EventEmitter();
         // generate a random model id
-        this.modelId = Math.floor(Math.random() * 100000);
+        this.modelId = Math.floor(Math.random() * 1000000);
         // instantiate a worker thread for the model engine
         const worker = new Worker("./dist/explain/model_engine.js");
         // load the JSON model definition file and inject it into the worker thread running the model engine
@@ -22,7 +22,7 @@ export class ModelMain {
                     if (mes.message === "model initialized") {
                         this.engineInitialized = true;
                         console.log("MODEL: Model engine initialized.");
-                        //Fire the 'scream' event:
+                        //let the api know there's a model ready for use
                         this.messenger.emit("model ready", {
                             id: this.modelId,
                             port: this.modelPort,

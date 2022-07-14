@@ -1,5 +1,3 @@
-import { Express } from "express";
-
 import { ModelMain } from "../explain/model_main.js";
 
 const model: ModelMain = new ModelMain("normal_neonate", 3000);

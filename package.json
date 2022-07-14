@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start": "tsc && node dist/api/server.js",
-    "dev": "concurrently \"tsc --watch\" \"nodemon -q dist/api/server.js\""
+    "start": "tsc && node dist/api/api.js",
+    "dev": "concurrently \"tsc --watch\" \"nodemon -q dist/api/api.js\""
   },
   "author": "Tim Antonius",
   "license": "ISC",
