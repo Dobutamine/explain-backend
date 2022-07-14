@@ -27,3 +27,4 @@ export * from "./placenta.js";
 export * from "./drugs.js";
 export * from "./ecls.js";
 export * from "./birth.js";
+export * from "../custom-models/custom_model_example.js";

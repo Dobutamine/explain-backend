@@ -1,7 +1,7 @@
-export type WorkerMessage = {
-  command: string;
-  target: string;
-  params: any;
+export type ThreadMessage = {
+  type: string;
+  message: string;
+  payload: any;
 };
 
 export type ModelDefinition = {
@@ -11,6 +11,16 @@ export type ModelDefinition = {
   model_time_total: number;
   modeling_stepsize: number;
   components: object;
+};
+
+export type Model = {
+  name: string;
+  description: string;
+  weight: number;
+  model_time_total: number;
+  modeling_stepsize: number;
+  components: Record<string, Component>;
+  model: {};
 };
 
 export class Component {

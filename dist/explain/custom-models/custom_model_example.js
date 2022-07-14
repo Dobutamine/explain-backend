@@ -1,5 +1,5 @@
 import { Component } from "../types/explain_types.js";
-export class BloodCompliance extends Component {
+export class CustomModelExample extends Component {
     constructor(model) {
         super(model);
     }

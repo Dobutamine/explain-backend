@@ -1,7 +1,7 @@
 import { Express } from "express";
 
-import { Model } from "../explain/model.js";
+import { ModelMain } from "../explain/model_main.js";
 
-const model: Model = new Model();
+const model: ModelMain = new ModelMain();
 
 console.log("server started");

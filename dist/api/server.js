@@ -1,3 +1,3 @@
-import { Model } from "../explain/model.js";
-const model = new Model();
+import { ModelMain } from "../explain/model_main.js";
+const model = new ModelMain();
 console.log("server started");
