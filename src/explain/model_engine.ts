@@ -116,14 +116,12 @@ function calculate(timeToCalculate: number): void {
   }
   const stop = performance.now();
   const duration = stop - start;
-  const mes = "calculate function";
-  const payload = {
+  sendMessage("performance", "calculate function", {
     timespan: timeToCalculate,
     steps: noOfSteps,
     duration: duration / 1000,
     step: duration / noOfSteps / 1000,
-  };
-  sendMessage("performance", mes, payload);
+  });
 }
 
 function start(): void {}

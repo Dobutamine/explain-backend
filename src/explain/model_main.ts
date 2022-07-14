@@ -3,9 +3,20 @@ import { readFile } from "fs";
 import path from "path";
 
 import { Worker } from "worker_threads";
+import { EventEmitter } from "events";
 
 export class ModelMain {
-  constructor(public modelName: string = "normal_neonate") {
+  public modelId = 1000;
+  public engineInitialized = false;
+  public messenger = new EventEmitter();
+
+  constructor(
+    public modelName: string = "normal_neonate",
+    public modelPort: number = 3000
+  ) {
+    // generate a random model id
+    this.modelId = Math.floor(Math.random() * 100000);
+
     // instantiate a worker thread for the model engine
     const worker: Worker = new Worker("./dist/explain/model_engine.js");
 
@@ -14,7 +25,22 @@ export class ModelMain {
 
     // setup communication channel with thread
     worker.on("message", (mes: ThreadMessage) => {
-      console.log(mes);
+      switch (mes.type) {
+        case "status":
+          if (mes.message === "model initialized") {
+            this.engineInitialized = true;
+            console.log("MODEL: Model engine initialized.");
+            //Fire the 'scream' event:
+            this.messenger.emit("model ready", {
+              id: this.modelId,
+              port: this.modelPort,
+            });
+          }
+          break;
+        case "error":
+          this.engineInitialized = false;
+          break;
+      }
     });
 
     worker.on("error", (error) => {
@@ -31,25 +57,17 @@ export class ModelMain {
     const abs_path = path.resolve("./" + filename + ".json");
     readFile(abs_path, "utf-8", (err, data) => {
       if (err) {
-        console.log(
-          "MODEL-MAIN: Error loading the JSON model definition file!"
-        );
+        this.engineInitialized = false;
+        console.log("MODEL: Error loading the JSON model definition file!");
         return undefined;
       }
-      console.log("MODEL-MAIN: Model definition file succesfully loaded.");
+      console.log("MODEL: Model definition file loaded.");
       let mes: ThreadMessage = {
         type: "init_engine",
         message: "",
         payload: JSON.parse(data),
       };
       worker.postMessage(mes);
-
-      let mes2: ThreadMessage = {
-        type: "calculate",
-        message: "",
-        payload: 10.0,
-      };
-      worker.postMessage(mes2);
     });
   }
 }
