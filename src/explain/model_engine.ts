@@ -1,6 +1,5 @@
 // import the parentPort for communication outside thread
 import { parentPort } from "worker_threads";
-
 // import the explain types
 import {
   Model,

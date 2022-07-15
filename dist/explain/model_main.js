@@ -60,7 +60,6 @@ export class ModelMain {
             // handle an incoming message
             ws.on("message", (data) => {
                 const mes = JSON.parse(data);
-                console.log("websocket data received");
             });
             ws.on("close", () => {
                 console.log("websocket connection closed");
